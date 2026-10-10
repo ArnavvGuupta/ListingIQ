@@ -1,0 +1,25 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+**/.env
+.env.local
+**/.env.local
+
+# Frontend dependencies and build output
+node_modules/
+dist/
+.next/
+
+# Large downloaded datasets
+*.gpkg
+*.zip
+osm-data/
+
+# Editor and operating system files
+.vscode/
+.DS_Store
+Thumbs.db
