@@ -228,6 +228,43 @@ Geographic data is provided by OpenStreetMap contributors and is available under
 
 This project uses the downloaded data for demonstration and analytics purposes. Attribution and applicable ODbL obligations should be maintained when redistributing the data or derived databases.
 
+## Challenges Faced and Solutions
+
+During the development of ListingIQ, I encountered several technical challenges and implemented solutions to make the data pipeline and dashboard more reliable.
+
+### 1. Data Collection and Request Failures
+**Challenge:** Collecting regional business-related data through live requests was difficult due to server errors and rate limits.
+
+**Solution:** Used the BBBike Extract Service to download a geographic OpenStreetMap extract covering Delhi and nearby areas, then processed the data locally using Python.
+
+### 2. Processing Geographic Data
+**Challenge:** The downloaded GeoPackage contained multiple geographic layers, including points and multipolygons, and not every feature represented a conventional business.
+
+**Solution:** Developed Python scripts to inspect the available layers, identify named features with relevant tags, and map the available attributes into a consistent listing structure.
+
+### 3. Database Integration
+**Challenge:** The extracted data needed to be stored in a structured format and made accessible to the dashboard.
+
+**Solution:** Used MySQL and SQLAlchemy to manage listing records and FastAPI endpoints to retrieve data, calculate aggregate metrics, and support bulk insertion.
+
+### 4. Dashboard Chart Readability
+**Challenge:** Displaying many city names and business categories made charts crowded and difficult to interpret.
+
+**Solution:** Limited the city chart to the top 10 cities, grouped smaller categories into an "Other" category, and adjusted chart labels, spacing, and legends.
+
+### 5. Consistent Dashboard Reporting
+**Challenge:** Ensuring that summary cards and charts represented a consistent set of records was important for reliable reporting.
+
+**Solution:** Configured the dashboard reporting endpoints to use a sample of 500 listings, keeping the displayed summary metrics and charts aligned with the intended reporting sample.
+
+### Key Learnings
+
+- Processing and structuring real-world geographic datasets.
+- Handling data extraction failures and choosing reliable data acquisition methods.
+- Integrating Python, FastAPI, SQLAlchemy, and MySQL.
+- Improving chart readability and dashboard usability.
+- Maintaining data provenance and documenting OpenStreetMap attribution.
+
 
 ## Author
 
