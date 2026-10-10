@@ -185,6 +185,50 @@ This project uses business-related data sourced from **OpenStreetMap (OSM)** and
 - User authentication and role-based access control
 - Automated testing and deployment
 
+## Web Scraping and Data Collection
+
+### Data Collection Using BBBike OpenStreetMap Extracts
+
+To collect real-world business listing data, I used **[BBBike Extract Service](https://extract.bbbike.org/)** to obtain a geographic extract covering Delhi and nearby areas.
+
+Instead of relying entirely on synthetic data or live scraping requests, I downloaded a regional extract containing OpenStreetMap geographic data and processed it locally.
+
+**Data collection workflow:**
+
+1. **Select the geographic region:** Used BBBike to select a bounding area covering Delhi and surrounding areas.
+2. **Download the extract:** Obtained the regional OpenStreetMap dataset in GeoPackage (`.gpkg`) format.
+3. **Inspect geographic data:** Examined the available layers, including `points` and `multipolygons`, which contain mapped locations and area-based features.
+4. **Extract relevant listings:** Used Python scripts to identify named features with business-related tags, such as shops, offices, amenities, and other points of interest.
+5. **Transform the data:** Mapped the extracted information into structured fields, including business name, category, city, address, phone number, and source.
+6. **Store in MySQL:** Imported the processed records into the `listing_master` table for dashboard analytics.
+7. **Visualize the results:** Used FastAPI endpoints to aggregate the records and display city-wise, category-wise, and source-wise distributions in ListingIQ.
+
+### Tools Used
+
+- **BBBike Extract Service:** Downloading a selected geographic extract.
+- **OpenStreetMap (OSM):** Source of mapped places and associated tags.
+- **Python:** Parsing and processing the downloaded data.
+- **GeoPackage / SQLite:** Reading geographic layers and their attributes.
+- **FastAPI and SQLAlchemy:** Importing and querying structured listing records.
+- **MySQL:** Persisting the processed records for dashboard reporting.
+
+### Data Quality and Limitations
+
+The downloaded extract contains mapped geographic features, not exclusively conventional businesses. Depending on their tags, records may include public amenities, parks, places of worship, government facilities, and other points of interest. The completeness of names, addresses, and phone numbers depends on the information contributed to OpenStreetMap.
+
+The dashboard uses a reporting sample of 500 listings for its summary and charts when configured to do so; this is distinct from the total number of records that may be stored in the database.
+
+### Attribution and Licensing
+
+Geographic data is provided by OpenStreetMap contributors and is available under the Open Database License (ODbL).
+
+- BBBike Extract Service: https://extract.bbbike.org/
+- OpenStreetMap copyright and attribution: https://www.openstreetmap.org/copyright
+- OpenStreetMap legal information: https://www.openstreetmap.org/copyright
+
+This project uses the downloaded data for demonstration and analytics purposes. Attribution and applicable ODbL obligations should be maintained when redistributing the data or derived databases.
+
+
 ## Author
 
 **Arnav Gupta**
